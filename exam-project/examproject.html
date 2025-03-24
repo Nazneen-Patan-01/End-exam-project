@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .task-list {
+            margin-top: 50px;
+            width: 50%;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            /* border: 1px solid  */
+            border-radius: 5px;
+        }
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #e60000;
+        }
+        .task-manager {
+           border: 6px dotted white;
+           padding: 20px;
+           background-color: rgb(211, 10, 77);
+              color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="task-list" id="taskList">
+        <div class="task-manager">
+            <h1>Task Manager</h1>
+            <input type="text" id="taskInput" placeholder="Enter a task" class="p-1 w-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="addTaskButton" class=" w-25 p-1">Add Task</button>
+    </div>
+       
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskList = document.getElementById('taskList');
+
+        
+        function addTask(taskText) {
+            if (taskText.trim() === '') {
+                alert('Task cannot be empty!');
+                return;
+            }
+
+            
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task');
+
+            
+            const taskContent = document.createElement('span');
+            taskContent.textContent = taskText;
+
+          
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.addEventListener('click', () => {
+                taskList.removeChild(taskDiv);
+            });
+
+
+            taskDiv.appendChild(taskContent);
+            taskDiv.appendChild(deleteButton);
+
+           
+            taskList.appendChild(taskDiv);
+        }
+
+      
+        addTaskButton.addEventListener('click', () => {
+            addTask(taskInput.value);
+            taskInput.value = ''; 
+        });
+
+      
+        taskInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addTask(taskInput.value);
+                taskInput.value = ''; 
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html> 
+
